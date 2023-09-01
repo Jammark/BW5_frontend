@@ -1,0 +1,78 @@
+<div class="d-flex flex-column align-items-center w-100">
+    <div class="w-100 mb-2 d-flex align-items-center justify-content-center bg-success">
+        <h1 class="text-center text-light">Profilo utente</h1>
+    </div>
+    <ng-container *ngIf="user else altro">
+    <div id="main" class="p-1 d-flex align-items-center justify-content-center bg-light">
+      <div class="d-flex flex-column">
+
+        <div class="d-flex justify-content-center w-100" *ngIf="user.imageUrl">
+          <img class="rounded-circle" [src]="user.imageUrl"/>
+        </div>
+
+        <div class="d-flex justify-content-around">
+      <h2 class="text-start w-50 ">Nome utente</h2>
+      <h2 class="w-50 ">{{user.nome}}</h2>
+    </div>
+
+    <div class="d-flex justify-content-around">
+      <h2 class="text-start w-50 ">Cognome utente</h2>
+      <h2 class="w-50 ">{{user.cognome}}</h2>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <h2 class="text-start w-50 ">Username</h2>
+      <h2 class="w-50 ">{{user.username}}</h2>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <h2 class="text-start w-50">Email</h2>
+      <h2 class="w-50">{{user.email}}</h2>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <h2 class="text-start w-50">Età</h2>
+      <h2 class="w-50">{{user.eta}}</h2>
+    </div>
+
+
+
+
+<!--
+      <div class="d-flex justify-content-between">
+        <h2 class="text-start w-50">Indirizzo</h2>
+        <h2 class="w-50 fs-6">{{user.address.street}} &nbsp;{{user.address.suite}} &nbsp;{{user.address.city}}</h2>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <h2 class="text-start w-50">Azienda</h2>
+        <h2 class="w-50 fs-6">{{user.company.name}}, &nbsp;{{user.company.catchPhrase}}</h2>
+      </div>
+
+
+    <form #form="ngForm" (ngSubmit)="salva(form)">
+      <div class="form-group">
+        <label for="imageUrl">Aggiungi immagine</label>
+        <input type="text" name="imageUrl" id="imageUrl" class="form-control" required ngModel>
+    </div>
+
+    <ng-container *ngIf="!carica else charge">
+      <button type="submit" [disabled]="form.invalid" class="btn btn-primary mt-3">Salva</button>
+    </ng-container>
+    <ng-template #charge>
+      <button class="btn btn-primary mt-3" type="button" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Attendere...
+      </button>
+    </ng-template>
+    </form>
+     -->
+    </div>
+  </div>
+</ng-container>
+<ng-template #altro>
+  <div class="spinner-grow" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</ng-template>
+</div>

@@ -1,0 +1,59 @@
+<div class="d-flex flex-column w-100 justify-content-center align-items-center py-2">
+  <div class="d-flex w-100 px-5 py-2">
+    <button class="btn btn-outline-dark" [routerLink]="['/albums']">
+      <span class="d-flex align-items-center">
+      <span class="d-flex justify-content-center align-items-center p-1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-backspace" viewBox="0 0 16 16">
+          <path d="M5.83 5.146a.5.5 0 0 0 0 .708L7.975 8l-2.147 2.146a.5.5 0 0 0 .707.708l2.147-2.147 2.146 2.147a.5.5 0 0 0 .707-.708L9.39 8l2.146-2.146a.5.5 0 0 0-.707-.708L8.683 7.293 6.536 5.146a.5.5 0 0 0-.707 0z"/>
+          <path d="M13.683 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7.08a2 2 0 0 1-1.519-.698L.241 8.65a1 1 0 0 1 0-1.302L5.084 1.7A2 2 0 0 1 6.603 1h7.08zm-7.08 1a1 1 0 0 0-.76.35L1 8l4.844 5.65a1 1 0 0 0 .759.35h7.08a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-7.08z"/>
+        </svg>
+      </span>Fatture </span> </button>
+  </div>
+  <ng-container *ngIf="!fattura?.id else altro">
+    <h1 class="text-center">Aggiungi nuova Fattura</h1>
+  </ng-container>
+  <ng-template #altro>
+    <h1 class="text-center">Mofifica fattura esistente</h1>
+  </ng-template>
+  <form #form="ngForm" (ngSubmit)="submit()" class="w-50">
+    <div ngModelGroup="post" #postGroup="ngModelGroup" id="post">
+        <div class="form-group py-2">
+          <label for="numero">Numero fattura</label>
+          <input type="text" id="numero" [(ngModel)]="fattura!.numero" name="numero"
+          required #numero="ngModel" class="w-100 mb-2">
+          <br>
+          <label for="anno">Anno</label>
+          <input type="text" id="anno" [(ngModel)]="fattura!.anno" name="anno"
+          required #anno="ngModel" class="w-100 mb-2">
+          <br>
+          <label for="importo">Importo fattura</label>
+          <textarea type="text" id="importo" [(ngModel)]="fattura!.importo" name="importo"
+          required #importo="ngModel" class="w-100 mb-2" rows="5"></textarea>
+          <br>
+          <label for="stato">Stato fattura</label>
+          <select id="stato" class="form-select"
+          name="stato"
+          [(ngModel)]="fattura!.stato"
+          required #stato ="ngModel">
+            <option *ngFor="let stato of getStati()" value="value" [value]="stato">{{stato}}</option>
+
+          </select>
+        <br/>
+        <label for="dt">Data:</label>
+
+        <input type="date" id="dt" name="dt" min="2000-01-01" max="2025-12-31"
+        [ngModel]="data | date:'yyyy-MM-dd'"
+          required #dt ="ngModel"  (ngModelChange)="data = $event" />
+        </div>
+    </div>
+    <ng-container *ngIf="!carica else charge">
+    <button type="submit" [disabled]="form.invalid" class="btn btn-primary mt-3">Salva</button>
+  </ng-container>
+  <ng-template #charge>
+    <button class="btn btn-primary mt-3" type="button" disabled>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Attendere...
+    </button>
+  </ng-template>
+  </form>
+</div>

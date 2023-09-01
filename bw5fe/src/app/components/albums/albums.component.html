@@ -1,0 +1,31 @@
+<div class="container-fluid w-100 py-4">
+  <div class="row gy-3 gx-2">
+    <div class="col-6 col-md-4 col-lg-3" *ngFor="let album of albums">
+        <div class="card h-100 border-primary"
+        (click)="registra(album)">
+          <div class="card-header d-flex align-items-center justify-content-between border-primary">
+            <img class="img-fluid rounded-circle" [src]="getUser(album)?.imageUrl">
+            <h2 class="fs-4">{{getUser(album)?.nome}}</h2>
+            <button class="btn btn-outline-danger rounded-circle p-1" [routerLink]="['fotos', album.id]">
+              <span class="d-flex align-items-center justify-content-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+              </svg></span>
+            </button>
+          </div>
+          <div class="card-body border-primary">
+            <h2 class="card-title">{{album.title}}</h2>
+          </div>
+          <div class="card-footer d-flex justify-content-end px-2 border-primary">
+              <button class="btn btn-outline-warning" [routerLink]="['gestioneFoto', album.id]"
+              (click)="registra(album)">
+            <span class="d-flex align-items-center justify-content-center p-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ffc107" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+              </svg>
+            </span></button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

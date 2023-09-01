@@ -1,0 +1,66 @@
+<div class="d-flex flex-column w-100 h-100 justify-content-center align-items-center">
+    <ng-container *ngIf="!cliente?.id else altro">
+      <h1 class="text-center">Crea nuovo cliente</h1>
+    </ng-container>
+    <ng-template #altro>
+      <h1 class="text-center">Mofifica cliente esistente</h1>
+    </ng-template>
+    <form #form="ngForm" (ngSubmit)="submit()" class="w-50">
+      <div ngModelGroup="post" #postGroup="ngModelGroup" id="post">
+          <div class="form-group">
+            <label for="rs">Ragioe sociale</label>
+            <input type="text" id="rs" [(ngModel)]="cliente!.ragioneSociale" name="rs"
+            required #title="ngModel" class="w-100">
+            <br>
+            <label for="piva">Partita iva</label>
+            <textarea type="text" id="piva" [(ngModel)]="cliente!.partitaIva" name="piva"
+            required #body="ngModel" class="w-100" rows="5"></textarea>
+            <br>
+            <label for="email">Email</label>
+            <input type="text" id="email" [(ngModel)]="cliente!.email" name="email"
+            required #imageUrl="ngModel" class="w-100">
+            <br>
+            <label for="fatturato">Fatturato</label>
+            <input type="text" id="fatturato" [(ngModel)]="cliente!.fatturatoAnnuale" name="fatturato"
+            required #imageUrl="ngModel" class="w-100">
+            <br>
+            <label for="pec">Pec</label>
+            <input type="text" id="pec" [(ngModel)]="cliente!.pec" name="pec"
+            required #imageUrl="ngModel" class="w-100">
+            <br>
+            <label for="tel">Telefono</label>
+            <input type="text" id="tel" [(ngModel)]="cliente!.telefono" name="tel"
+            required #imageUrl="ngModel" class="w-100">
+            <br>
+            <label for="ec">Email contatto</label>
+            <input type="text" id="ec" [(ngModel)]="cliente!.emailContatto" name="ec"
+            required #imageUrl="ngModel" class="w-100">
+            <br>
+            <label for="nc">Nome contatto</label>
+            <input type="text" id="nc" [(ngModel)]="cliente!.nomeContatto" name="nc"
+            required #imageUrl="ngModel" class="w-100">
+            <br>
+            <label for="tc">Telefono contatto</label>
+            <input type="text" id="tc" [(ngModel)]="cliente!.telefonoContatto" name="tc"
+            required #imageUrl="ngModel" class="w-100">
+            <br>
+            <label for="tipo">Tipo cliente</label>
+              <select id="tipo" class="form-select"
+              name="tipo"
+              [(ngModel)]="cliente!.tipo"
+              required #tipo ="ngModel">
+                <option *ngFor="let tipo of getTipi()" value="value" [value]="tipo">{{tipo}}</option>
+
+              </select>
+      <!--
+            <label for="userId">Utente</label>
+            <select id="userId" name="userId" required #userId="ngModel" class="w-100"
+            [(ngModel)]="post!.userId">
+            <option *ngFor="let user of users" [value]="user.id">{{user.name}}</option>
+          </select>
+          -->
+          </div>
+      </div>
+      <button type="submit" [disabled]="form.invalid" class="btn btn-primary mt-3">Invia</button>
+    </form>
+</div>

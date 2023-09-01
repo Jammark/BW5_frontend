@@ -1,0 +1,34 @@
+.com{
+  border-bottom: 2px solid darkcyan;
+}
+
+.user-img{
+  height: 30px;
+  width: 30px;
+  object-fit:cover;
+}
+
+.imgC{
+  height: 20px;
+  width: 20px;
+  object-fit:cover;
+}
+
+.modal-content{
+  --bs-modal-border-color: green;
+}
+
+.modal-footer{
+  --bs-modal-footer-border-color: green;
+}
+
+.modal-header{
+  --bs-modal-header-border-color: green;
+}
+
+.add:hover{
+  svg{
+    fill: green;
+  }
+
+}

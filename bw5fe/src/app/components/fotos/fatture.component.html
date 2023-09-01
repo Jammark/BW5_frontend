@@ -1,0 +1,137 @@
+<div class="container-fluid w-100">
+  <div class="row gy-3 gx-2">
+    <div class="col-12 d-flex">
+      <form #form="ngForm" (ngSubmit)="submit()" class="w-50 container-fluid w-100" >
+        <div ngModelGroup="seacrh" #postGroup="ngModelGroup" id="post" class="row gy-3 gx-2 align-items-center">
+        <!--
+          <div class="form-group py-2" class="col-2 h-100">
+              <label for="numero">Numero fattura</label>
+              <input type="text" id="numero" [(ngModel)]="fattura!.numero" name="numero"
+               #numero="ngModel" class="w-100 mb-2">
+              <br>
+            </div>
+            -->
+              <div class="form-group py-2" class="col-2 h-100">
+              <label for="anno">Anno</label>
+              <input type="text" id="anno" [(ngModel)]="fattura!.anno" name="anno"
+               #anno="ngModel" class="w-100 mb-2">
+              <br>
+            </div>
+            <!--
+            <div class="form-group py-2" class="col-2 h-100">
+              <label for="importo">Importo fattura</label>
+              <input type="text" id="importo" [(ngModel)]="fattura!.importo" name="importo"
+               #importo="ngModel" class="w-100 mb-2" rows="5">
+              <br>
+            </div>
+            -->
+            <div class="form-group py-2" class="col-2 h-100">
+              <label for="stato">Stato fattura</label>
+              <select id="stato" class="form-select"
+              name="stato"
+              [(ngModel)]="fattura!.stato"
+               #stato ="ngModel">
+                <option *ngFor="let stato of getStati()" value="value" [value]="stato">{{stato}}</option>
+
+              </select>
+            <br/>
+          </div>
+          <div class="form-group py-2" class="col-2 h-100">
+            <label for="dt">Data:</label>
+
+            <input type="date" id="dt" name="dt" min="2000-01-01" max="2025-12-31"
+            [ngModel]="data | date:'yyyy-MM-dd'"
+               #dt ="ngModel"  (ngModelChange)="data = $event" />
+
+            </div>
+
+            <div class="form-group py-2" class="col-2">
+              <label for="min">importo minimo</label>
+              <input type="text" id="min" [(ngModel)]="fattura!.min" name="min"
+               #min="ngModel" class="w-100 mb-2">
+              <br>
+            </div>
+            <div class="form-group py-2" class="col-2">
+              <label for="max">importo massimo</label>
+              <input type="text" id="max" [(ngModel)]="fattura!.max" name="max"
+               #max="ngModel" class="w-100 mb-2">
+              <br>
+            </div>
+
+        </div>
+        <ng-container *ngIf="!carica else charge">
+        <button type="submit" [disabled]="form.invalid" class="btn btn-primary mt-3">Cerca</button>
+      </ng-container>
+      <ng-template #charge>
+        <button class="btn btn-primary mt-3" type="button" disabled>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Attendere...
+        </button>
+      </ng-template>
+      </form>
+    </div>
+    <div class="col-12 d-flex">
+      <button class="btn btn-outline-dark" [routerLink]="['/albums/gestioneFoto/'+ this.clienteId!]">
+        <span class="d-flex align-items-center">
+          <span class="d-flex align-items-center justify-content-center p-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-plus-lg" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+            </svg>
+          </span>Aggiungi </span> </button>
+    </div>
+    <div class="col-6 col-md-4 col-lg-3" *ngFor="let fattura of fatture">
+      <ng-container *ngIf="!isRemoving(fattura) else carica">
+        <div class="card h-100">
+
+          <div class="card-body">
+            <h2 class="card-title">Fattura: {{fattura.numero}}</h2>
+
+            <h4 class="card-title">Importo: {{fattura.importo}}</h4>
+
+            <h4 class="card-title">Stato fattura: {{fattura.stato}}</h4>
+
+            <h4 class="card-title">Data fattura: {{fattura.data}}</h4>
+          </div>
+          <div class="card-footer d-flex justify-content-between" *ngIf="hasPermissions()">
+            <button class="btn btn-success" (click)="modifica(fattura)">Modifica</button>
+            <button class="delete btn btn-outline-danger" (click)="showModal(fattura.id!)">
+              <span class="d-flex align-items-center justify-content-center p-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-trash" viewBox="0 0 16 16">
+                  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #carica>
+        <div class="w-100 h-100 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-danger" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      </ng-template>
+        <div class="container">
+          <!-- Modal -->
+         <div class="modal" [id]="'exampleModal'+fattura.id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+             <div class="modal-dialog">
+               <div class="modal-content">
+                 <div class="modal-header">
+                   <h5 class="modal-title" id="exampleModalLabel">Attenzione!</h5>
+                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                 </div>
+                 <div class="modal-body">
+                  <p>Sicuro di voler procedere con l'operazione?</p>
+                 </div>
+                 <div class="modal-footer">
+                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                   <button id="confirm" type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" (click)="rimuovi(fattura)">Conferma</button>
+                 </div>
+               </div>
+             </div>
+           </div>
+               </div>
+    </div>
+  </div>
+</div>
