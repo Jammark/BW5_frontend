@@ -27,7 +27,7 @@ export class GestioneFatturaComponent implements OnInit, OnDestroy{
   submit():void{
       this.carica = true;
       if(this.data){
-        this.fattura!.data = this.data.toString();
+        this.fattura!.data = DateUtil.formatDate(this.data);
       }
       if(this.fattura?.id){
         console.log(`data inserita:`+ this.data?.toString())

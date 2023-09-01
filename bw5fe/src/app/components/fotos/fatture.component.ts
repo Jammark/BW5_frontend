@@ -146,7 +146,7 @@ constructor(private router: ActivatedRoute, private srv: FattureService, private
 
   submit(){
     if(this.fattura){
-      this.fattura!.data = this.data.toString();
+      this.fattura!.data = DateUtil.formatDate(this.data);
       this.fattura!.clienteId = this.clienteId
       if(this.fattura.max && this.fattura.min){
         this.srv.cercaFatture(this.fattura, this.fattura.min!, this.fattura.max!).pipe(

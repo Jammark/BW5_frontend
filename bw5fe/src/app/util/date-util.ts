@@ -6,6 +6,20 @@ let joined = DateUtil.join(data, options, '-');
     return joined;
   }
 
+  static formatDate(date:Date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
   static join(date:Date, options:Intl.DateTimeFormatOptions[], separator:string) {
     function format(option:Intl.DateTimeFormatOptions) {
        let formatter = new Intl.DateTimeFormat('en', option);
